@@ -40,13 +40,13 @@ App.prototype.parseBoroughs = function(){
           var boroughContainer = document.querySelector("#borough"+boroughId);
           var boroughList = document.createElement('ul');
           boroughList.id = "list" + macroId;
-          boroughContainer.appendChild(boroughList);
 
           if (boroughName !== macroName){
             var macroHeader = document.createElement('h3');
             macroHeader.textContent = macroName;
             boroughContainer.appendChild(macroHeader);
           }
+          boroughContainer.appendChild(boroughList);
         }
 
         function displayNeighborhood(){
