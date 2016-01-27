@@ -127,3 +127,32 @@ a{
 .highlighted{
   background: rgb(206,139,142);
 }
+
+@media only screen and (max-width:600px){
+  #main-container{
+    flex-flow: column wrap;
+    justify-content:space-between;
+    align-items: flex-start;
+  }
+
+  #container-A{
+    width:100%;  
+    flex:none;
+    align-self:flex-start;
+    display:flex;
+    flex-flow:column wrap;
+    justify-content:space-between;
+    align-items:flex-start;
+    order:2;
+  }
+
+  #container-B{
+    width:100%;
+    flex:none;
+    align-self:flex-start;
+    order:1;
+    background-color: rgb(210,96,102); 
+    padding:2%;
+  }
+
+}
