@@ -14,7 +14,7 @@ App.prototype.parseBoroughs = function(){
       var mappings = boroughObject.mappings;
 
       function displayBorough(){
-        $("#container-A").append('<div id="' + boroughId +'"><h1>' + boroughName + '</h1>');
+        $("#container-A").append('<div id="' + boroughId +'" class="borough-listing"><h2>' + boroughName + '</h2>');
         } 
       displayBorough(); 
       
@@ -30,8 +30,8 @@ App.prototype.parseBoroughs = function(){
        displayMacro();
 
        function displayMacro(){
-          if (!(neighborhoodArray.includes(macroName))){
-            $("#" + boroughId).append("<h2>" + macroName + "</h2>");
+          if (boroughName !== macroName){
+            $("#" + boroughId).append("<h3>" + macroName + "</h3>");
           }
           $("#" + boroughId).append('<ul id="' + macroId + '"></ul>');
         }
