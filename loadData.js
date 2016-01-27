@@ -1,9 +1,9 @@
-$(document).on("ready", function(){
-  var app = new App();
-  app.parseBoroughs();
-  app.displayAllBoroughs();
-  app.neighbrhoodClickListener();
-});
+document.addEventListener('DOMContentLoaded', function(){
+    var app = new App();
+    app.parseBoroughs();
+    app.displayAllBoroughs();
+    app.neighbrhoodClickListener();
+})
 
 var App = function(){};
 
@@ -14,7 +14,14 @@ App.prototype.parseBoroughs = function(){
       var mappings = boroughObject.mappings;
 
       function displayBorough(){
-        $("#container-A").append('<div id="' + boroughId +'" class="borough-listing"><h2>' + boroughName + '</h2>');
+        var containerA = document.querySelector("#container-A");
+        var boroughContainer = document.createElement('div');
+        boroughContainer.id = "borough" + boroughId;
+        var boroughHeader = document.createElement('h2');
+        boroughHeader.className += "borough-listing";
+        boroughHeader.textContent = boroughName;
+        containerA.appendChild(boroughContainer);
+        boroughContainer.appendChild(boroughHeader);
         } 
       displayBorough(); 
       
@@ -30,15 +37,24 @@ App.prototype.parseBoroughs = function(){
        displayMacro();
 
        function displayMacro(){
+          var boroughContainer = document.querySelector("#borough"+boroughId);
+          var boroughList = document.createElement('ul');
+          boroughList.id = "list" + macroId;
+          boroughContainer.appendChild(boroughList);
+
           if (boroughName !== macroName){
-            $("#" + boroughId).append("<h3>" + macroName + "</h3>");
+            var macroHeader = document.createElement('h3');
+            macroHeader.textContent = macroName;
+            boroughContainer.appendChild(macroHeader);
           }
-          $("#" + boroughId).append('<ul id="' + macroId + '"></ul>');
         }
 
         function displayNeighborhood(){
+          var boroughList = document.querySelector("#list" + macroId);
           for (var i=0; i<neighborhoodArray.length; i++){
-            $("#" + macroId).append("<li><a href='#'>" + neighborhoodArray[i] + "</a></li>");
+            var neighborhood = document.createElement('li');
+            neighborhood.innerHTML = "<a href='#'>" + neighborhoodArray[i] + "</a>";
+            boroughList.appendChild(neighborhood);
           }
         }
           displayNeighborhood();   
@@ -49,18 +65,25 @@ App.prototype.parseBoroughs = function(){
 App.prototype.displayAllBoroughs = function(){
   data.forEach(function(boroughObject){
     var boroughId = boroughObject.borough.id;
-    $(".borough-list").append("<li class='" + boroughId + "'>" + boroughObject.borough.name + "</li>");
+    var boroughList = document.querySelector(".borough-list");
+    var boroughListItem = document.createElement('li');
+    boroughListItem.textContent = boroughObject.borough.name;
+    boroughListItem.className += ("borough" + boroughId);
+    boroughList.appendChild(boroughListItem);
   });  
 }
 
 App.prototype.neighbrhoodClickListener = function(){
-   $("li").on("click", function(e){
-      var boroughId = $(this).parent().parent().attr('id');
-      var $borough = $("li."+boroughId);
+  var linkedNeighborhoods = document.querySelectorAll('li');
+  for(i=0; i<linkedNeighborhoods.length; i++){
+    linkedNeighborhoods[i].addEventListener("click", function(e){
       e.preventDefault();
-      $borough.addClass("highlighted");
-      $(this).on('mouseout', function(){
-        $borough.removeClass("highlighted");
-      })
-    });  
+      var boroughId = this.parentElement.parentElement.id;
+      var boroughInList = document.querySelector("."+boroughId);
+      boroughInList.classList.add("highlighted");
+      this.addEventListener("mouseout", function(){
+        boroughInList.classList.remove("highlighted");
+      });
+    });
+  }
  }
