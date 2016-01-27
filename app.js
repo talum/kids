@@ -30,10 +30,10 @@ function parseBoroughs(){
         if (!(neighborhoodArray.includes(macroName))){
           $("#" + boroughId).append("<h2>" + macroName + "</h2>");
         }
+        $("#" + boroughId).append('<ul id="' + macroId + '"></ul>');
       }
 
       function displayNeighborhood(){
-        $("#" + boroughId).append('<ul id="' + macroId + '"></ul>');
         for (var i=0; i<neighborhoodArray.length; i++){
           $("#" + macroId).append("<li><a href='#'>" + neighborhoodArray[i] + "</a></li>");
         }
@@ -45,16 +45,19 @@ function parseBoroughs(){
 
 function displayAllBoroughs(){
   data.forEach(function(boroughObject){
-    $(".borough-list").append("<li>" + boroughObject.borough.name + "</li>");
+    var boroughId = boroughObject.borough.id;
+    $(".borough-list").append("<li class='" + boroughId + "'>" + boroughObject.borough.name + "</li>");
   })
 }
 
 function neighborhoodClickListener(){
   $("li").on("click", function(e){
+    var boroughId = $(this).parent().parent().attr('id');
+    var $borough = $("li."+boroughId);
     e.preventDefault();
-    $(this).parent().parent().find("h1").addClass("highlighted");
+    $borough.addClass("highlighted");
     $(this).on('mouseout', function(){
-      $(this).parent().parent().find("h1").removeClass("highlighted");
+      $borough.removeClass("highlighted");
     })
   });
 }
