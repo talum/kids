@@ -50,28 +50,26 @@ table {
 }
 
 /* custom */
+*{
+  box-sizing:border-box;
+}
 
 #main-container{
-  width:80%;
+  width:100%;
   margin:0 auto;
-  display:flex;
-  flex-flow: row wrap;
-  justify-content:space-between;
-  align-items: flex-start;
 }
 
 #container-A{
-  width:80%;  
-  flex:none;
-  align-self:flex-start;
+  width:100%;  
   display:flex;
   flex-flow:row wrap;
   justify-content:space-between;
   align-items:flex-start;
+  padding:2%;
 }
 
 #container-B{
-  width:16%;
+  width:100%;
   flex:none;
   align-self:flex-start;
   background-color: rgb(210,96,102); 
@@ -80,9 +78,11 @@ table {
 #container-B h2, #container-B li{
   color:#FFF;
 }
+#container-B li{
+  display:inline;
+}
 
 .borough-listing{
-  width:33%;
   color:rgb(96,176,239);
   flex:none;
   align-self: flex-start;
